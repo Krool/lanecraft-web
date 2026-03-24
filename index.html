@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lanecraft - Free Strategy Game | 9 Races, Multiplayer, Upgrades</title>
+  <meta name="description" content="Lanecraft is a free real-time strategy game with 9 unique races, online multiplayer, upgrade trees, and bot AI. Play instantly in your browser.">
+  <meta name="keywords" content="lanecraft, strategy game, rts, real-time strategy, free browser game, multiplayer, pixel art, tower defense, lane strategy, upgrade trees">
+  <link rel="canonical" href="https://krool.github.io/lanecraft-web/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Lanecraft">
+  <meta property="og:title" content="Lanecraft - Free Browser Strategy Game">
+  <meta property="og:description" content="9 races, online multiplayer, upgrade trees, and bot AI. Play free in your browser.">
+  <meta property="og:image" content="https://krool.github.io/lanecraft-web/feature.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://krool.github.io/lanecraft-web/">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lanecraft - Free Browser Strategy Game">
+  <meta name="twitter:description" content="9 races, online multiplayer, upgrade trees, and bot AI. Play free in your browser.">
+  <meta name="twitter:image" content="https://krool.github.io/lanecraft-web/feature.png">
+
+  <link rel="icon" href="icon.png" type="image/png">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Lanecraft",
+    "operatingSystem": "Any",
+    "applicationCategory": "GameApplication",
+    "genre": ["Strategy", "Real-Time Strategy", "Multiplayer"],
+    "description": "Lanecraft is a free real-time strategy game with 9 unique races, online multiplayer, upgrade trees, and intelligent bot AI. Play instantly in your browser.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "image": "https://krool.github.io/lanecraft-web/feature.png",
+    "url": "https://krool.github.io/lanecraft-web/",
+    "author": {
+      "@type": "Organization",
+      "name": "Krool"
+    }
+  }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #d0d0d0;
+      background: #0a0a14;
+      overflow-x: hidden;
+    }
+
+    /* -- Hero Section -- */
+    .hero-section {
+      position: relative;
+      text-align: center;
+      padding: 2.5rem 1rem 0;
+      background: linear-gradient(180deg,
+        #0a0a1a 0%,
+        #111128 30%,
+        #1a1230 60%,
+        #221830 100%);
+      overflow: hidden;
+    }
+
+    /* stars */
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 25% 8%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1.5px 1.5px at 40% 22%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 55% 5%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 70% 18%, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1.5px 1.5px at 85% 12%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 15% 35%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 60% 30%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 90% 28%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 35% 40%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1.5px 1.5px at 78% 6%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 48% 42%, rgba(255,255,255,0.35), transparent);
+      pointer-events: none;
+    }
+
+    /* crescent moon */
+    .moon {
+      position: absolute;
+      top: 2rem;
+      left: 8%;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #c8b8e0;
+      box-shadow: 0 0 20px 6px rgba(200,184,224,0.15);
+    }
+    .moon::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: 8px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #111128;
+    }
+
+    .app-icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 2px rgba(255,255,255,0.08);
+      margin-bottom: 1rem;
+      image-rendering: auto;
+    }
+
+    .hero-section h1 {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 3rem;
+      color: #fff;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+      margin-bottom: 0.15rem;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: 1.15rem;
+      color: #ffd700;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      color: #aaa;
+      margin-bottom: 1.5rem;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #ffd700 0%, #e6a800 100%);
+      color: #1a1a2e;
+      text-decoration: none;
+      padding: 0.8rem 2rem;
+      border-radius: 12px;
+      font-weight: 900;
+      font-size: 1.1rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 16px rgba(255,215,0,0.3);
+      letter-spacing: 0.5px;
+      margin-bottom: 1.5rem;
+    }
+    .play-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(255,215,0,0.4);
+    }
+    .play-btn svg { width: 22px; height: 22px; }
+
+    /* -- Feature Banner -- */
+    .banner-wrap {
+      position: relative;
+      margin-top: 0.5rem;
+    }
+    .banner-wrap img {
+      width: 100%;
+      max-width: 800px;
+      display: block;
+      margin: 0 auto;
+      border-radius: 0;
+    }
+    .banner-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(transparent, #0a0a14);
+    }
+
+    /* -- Ember particles (CSS-only) -- */
+    .ember {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: #ffd700;
+      box-shadow: 0 0 6px 2px rgba(255,215,0,0.3);
+      animation: rise 5s ease-in-out infinite;
+      opacity: 0;
+    }
+    .ember:nth-child(2) { left: 18%; bottom: 20%; animation-delay: 0.8s; background: #ffaa00; animation-duration: 6s; }
+    .ember:nth-child(3) { left: 72%; bottom: 15%; animation-delay: 2s; background: #ffd700; animation-duration: 4.5s; }
+    .ember:nth-child(4) { left: 45%; bottom: 25%; animation-delay: 3s; background: #ff8800; animation-duration: 7s; }
+    .ember:nth-child(5) { left: 85%; bottom: 18%; animation-delay: 1.2s; background: #ffcc00; animation-duration: 5.5s; }
+
+    @keyframes rise {
+      0%, 100% { opacity: 0; transform: translate(0, 0); }
+      20% { opacity: 0.8; }
+      50% { opacity: 0.5; transform: translate(8px, -30px); }
+      80% { opacity: 0.6; }
+    }
+
+    /* -- Features -- */
+    .features {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 1.5rem;
+    }
+
+    .features h2 {
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 1.25rem;
+      text-align: center;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+
+    .feature-card {
+      background: linear-gradient(135deg, #12152e 0%, #14141f 100%);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 1.1rem;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover {
+      border-color: rgba(255,215,0,0.25);
+    }
+
+    .feature-card .icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
+    .feature-card h3 {
+      color: #ffd700;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .feature-card p {
+      font-size: 0.88rem;
+      color: #999;
+      line-height: 1.45;
+    }
+
+    /* -- Description -- */
+    .description {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 1rem 1.25rem 2.5rem;
+      text-align: center;
+    }
+    .description h2 {
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 900;
+      margin-bottom: 0.75rem;
+    }
+    .description p {
+      font-size: 0.92rem;
+      color: #999;
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+    .description strong { color: #ffd700; }
+
+    .free-badge {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.4rem 1.2rem;
+      background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* -- Footer -- */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.82rem;
+      color: #555;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    footer a { color: #74b9ff; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* -- Responsive -- */
+    @media (max-width: 560px) {
+      .hero-section h1 { font-size: 2.2rem; }
+      .subtitle { font-size: 1rem; }
+      .app-icon { width: 90px; height: 90px; border-radius: 20px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .moon { width: 28px; height: 28px; top: 1.5rem; }
+      .moon::after { width: 24px; height: 24px; top: -3px; left: 6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero-section">
+    <div class="moon" aria-hidden="true"></div>
+    <div class="ember" style="left:30%; bottom:22%" aria-hidden="true"></div>
+    <div class="ember" aria-hidden="true"></div>
+    <div class="ember" aria-hidden="true"></div>
+    <div class="ember" aria-hidden="true"></div>
+    <div class="ember" aria-hidden="true"></div>
+
+    <img class="app-icon" src="icon.png" alt="Lanecraft app icon" width="120" height="120">
+    <h1>Lanecraft</h1>
+    <p class="subtitle">Choose Your Race. Command Your Lanes.</p>
+    <p class="tagline">A free real-time strategy game with 9 unique races, online multiplayer, upgrade trees, and intelligent bot AI. Play instantly in your browser.</p>
+
+    <a class="play-btn" href="https://krool.github.io/Lanecraft/" aria-label="Play Lanecraft now">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      Play Now
+    </a>
+
+    <div class="banner-wrap">
+      <img src="feature.png" alt="Lanecraft gameplay showing units battling across lanes" width="1200" height="630">
+    </div>
+  </header>
+
+  <main>
+    <section class="features" aria-label="Game features">
+      <h2>Features</h2>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">&#x1F3F0;</span>
+          <h3>9 Unique Races</h3>
+          <p>Crown, Horde, Goblins, Oozlings, Demon, Deep, Wild, Geists, and Tenders. Each with distinct units, abilities, and resource strategies.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">&#x2694;&#xFE0F;</span>
+          <h3>Lane-Based Combat</h3>
+          <p>Build barracks, archery ranges, and monasteries. Deploy melee, ranged, and caster units down lanes to destroy your opponent's HQ.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">&#x1F310;</span>
+          <h3>Online Multiplayer</h3>
+          <p>1v1, 2v2, 3v3, and 4v4 matches with friends or bots. Deterministic lockstep networking via Firebase.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">&#x2B06;&#xFE0F;</span>
+          <h3>Upgrade Trees</h3>
+          <p>216 upgrade nodes across all races. Branch into specialized unit paths with unique sprites and abilities.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">&#x1F9E0;</span>
+          <h3>Smart Bot AI</h3>
+          <p>4 difficulty levels with intelligent strategy: combat telemetry, threat profiling, dynamic build orders, and matchup-aware upgrades.</p>
+        </article>
+        <article class="feature-card">
+          <span class="icon" aria-hidden="true">&#x1F3A8;</span>
+          <h3>Pixel Art Visuals</h3>
+          <p>Day/night cycle, weather effects, screen shake, projectile trails, and detailed sprite animations. All rendered on HTML5 Canvas.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="description">
+      <h2>About the Game</h2>
+      <p>Lanecraft is a <strong>real-time strategy game</strong> where you pick a race, harvest resources, build your base, and send waves of units down lanes to destroy the enemy headquarters. Each of the <strong>9 races</strong> plays differently with unique unit stats, abilities, and resource economies.</p>
+      <p>Play solo against <strong>intelligent bot AI</strong> that adapts its strategy based on what you build, or go online with friends in <strong>2v2, 3v3, and 4v4</strong> team battles. Research upgrades to unlock powerful unit evolutions with branching skill trees.</p>
+      <p><strong>No ads. No accounts. No downloads. Just play.</strong></p>
+      <span class="free-badge">100% Free</span>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Krool &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="https://github.com/Krool/Lanecraft/issues">Contact &amp; Support</a></p>
+  </footer>
+</body>
+</html>
